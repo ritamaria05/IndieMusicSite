@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Registar Utilizador</title>
+        <link rel="stylesheet" href="styles.css">
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+              apiKey: "AIzaSyAMbq_ikvqICOwNnwVfAff2j5oQyn1bWJI",
+              authDomain: "indiemusic-60038.firebaseapp.com",
+              projectId: "indiemusic-60038",
+              storageBucket: "indiemusic-60038.firebasestorage.app",
+              messagingSenderId: "364494962187",
+              appId: "1:364494962187:web:8b8417111e49a7d011910e",
+              measurementId: "G-6JPCWRQH13"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+          </script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="login.html">Login</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    <main>
+        <section>
+            <h1>Registar Nova Conta</h1>
+            <form id="form-register">
+                <label>
+                    Nome:
+                    <input type="text" id="register-name" required />
+                </label>
+                <br><br>
+                <label>
+                    Email:
+                    <input type="email" id="register-email" required />
+                </label>
+                <br><br>
+                <label>
+                    Password:
+                    <input type="password" id="register-password" required minlength="6"/>
+                </label>
+                <br><br>
+                <button type="submit">Registar</button>
+            </form>
+            <p id="register-error" style="color: red;"></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Música Portuguesa</p>
+    </footer>
+    <script>
+        document.getElementById('form-register').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const nome     = document.getElementById('register-name').value.trim();
+          const email    = document.getElementById('register-email').value.trim();
+          const password = document.getElementById('register-password').value;
+    
+          const errorP = document.getElementById('register-error');
+          errorP.textContent = '';
+    
+          try {
+            // 1) Criar utilizador no Firebase Auth
+            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const user = userCredential.user; // Objeto Firebase User
+    
+            // 2) Guardar dados adicionais no Firestore (coleção "users")
+            await db.collection('users').doc(user.uid).set({
+              nome: nome,
+              email: email,
+              criado_em: firebase.firestore.FieldValue.serverTimestamp()
+            });
+    
+            // 3) Redirecionar para zona privada (por ex. perfil.html)
+            window.location.href = 'perfil.html';
+    
+          } catch (error) {
+            console.error('Erro ao registar:', error);
+            errorP.textContent = error.message;
+          }
+        });
+      </script>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Registar Utilizador</title>
+        <link rel="stylesheet" href="styles.css">
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+              apiKey: "AIzaSyAMbq_ikvqICOwNnwVfAff2j5oQyn1bWJI",
+              authDomain: "indiemusic-60038.firebaseapp.com",
+              projectId: "indiemusic-60038",
+              storageBucket: "indiemusic-60038.firebasestorage.app",
+              messagingSenderId: "364494962187",
+              appId: "1:364494962187:web:8b8417111e49a7d011910e",
+              measurementId: "G-6JPCWRQH13"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+          </script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="register.html">Registar</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    <main>
+        <section>
+            <h1>Login</h1>
+            <form id="form-login">
+                <label>
+                    Email:
+                    <input type="email" id="login-email" required />
+                </label>
+                <br><br>
+                <label>
+                    Password:
+                    <input type="password" id="login-password" required minlength="6"/>
+                </label>
+                <br><br>
+                <button type="submit">Entrar</button>
+            </form>
+            <p id="login-error" style="color: red;"></p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Música Portuguesa</p>
+    </footer>
+    
+    <script>
+        document.getElementById('form-login').addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const email    = document.getElementById('login-email').value.trim();
+          const password = document.getElementById('login-password').value;
+    
+          const errorP = document.getElementById('login-error');
+          errorP.textContent = '';
+    
+          try {
+            await auth.signInWithEmailAndPassword(email, password);
+            // Se tudo OK, redireciona para perfil.html
+            window.location.href = 'perfil.html';
+    
+          } catch (error) {
+            console.error('Erro ao fazer login:', error);
+            errorP.textContent = error.message;
+          }
+        });
+      </script>
+    </body>
+</html>

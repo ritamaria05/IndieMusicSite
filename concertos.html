@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Concertos – Música Portuguesa</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Se usares FullCalendar, inclui os estilos: -->
+  <link rel="stylesheet" href="libs/fullcalendar/main.min.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="artistas.html">Artistas</a></li>
+        <li><a href="concertos.html">Concertos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h1>Agenda de Concertos</h1>
+      <!-- Lista simples -->
+      <ul id="lista-concertos"></ul>
+    </section>
+
+    <!-- Se quiser o calendário, descomenta: -->
+    <section>
+      <h2>Calendário</h2>
+      <div id="calendar"></div>
+    </section>
+
+    <!-- Opcional: Mapa de localização -->
+    <!--
+    <section>
+      <h2>Mapa dos Concertos</h2>
+      <div id="map"></div>
+    </section>
+    -->
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Música Portuguesa</p>
+  </footer>
+
+  <!-- Scripts necessários -->
+  <!-- Se usares FullCalendar: -->
+  <script src="libs/fullcalendar/main.min.js"></script>
+  <script src="js/concertos.js"></script>
+</body>
+</html>

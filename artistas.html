@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Artistas – Música Portuguesa</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="artistas.html">Artistas</a></li>
+        <li><a href="concertos.html">Concertos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section>
+      <h1>Artistas</h1>
+      <input type="text" id="busca-artista" placeholder="Filtrar por nome…">
+      <div id="lista-artistas"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Música Portuguesa</p>
+  </footer>
+
+  <script src="js/artistas.js"></script>
+  <script>
+    // Filtro simples por nome
+    document.getElementById('busca-artista').addEventListener('input', function(e) {
+      const termo = e.target.value.toLowerCase();
+      document.querySelectorAll('#lista-artistas .card-artista-lista').forEach(card => {
+        const nome = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = nome.includes(termo) ? 'flex' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

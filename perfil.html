@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Perfil do Utilizador</title>
+        <link rel="stylesheet" href="styles.css">
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js";
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+            const firebaseConfig = {
+              apiKey: "AIzaSyAMbq_ikvqICOwNnwVfAff2j5oQyn1bWJI",
+              authDomain: "indiemusic-60038.firebaseapp.com",
+              projectId: "indiemusic-60038",
+              storageBucket: "indiemusic-60038.firebasestorage.app",
+              messagingSenderId: "364494962187",
+              appId: "1:364494962187:web:8b8417111e49a7d011910e",
+              measurementId: "G-6JPCWRQH13"
+            };
+          
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const analytics = getAnalytics(app);
+          </script>
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="#" id="logout-btn">Sair</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="profile-container">
+                <h1>Carregando perfil...</h1>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 Música Portuguesa</p>
+        </footer>
+        <script>
+            // 1) Monitoriza o estado de autenticação
+            auth.onAuthStateChanged(async (user) => {
+              const container = document.getElementById('profile-container');
+              container.innerHTML = '';
+        
+              if (user) {
+                // Está autenticado – buscar dados no Firestore
+                const userDoc = await db.collection('users').doc(user.uid).get();
+                const userData = userDoc.exists ? userDoc.data() : null;
+        
+                if (userData) {
+                  container.innerHTML = `
+                    <h1>Olá, ${userData.nome}!</h1>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>Criado em:</strong> ${userData.criado_em.toDate().toLocaleString('pt-PT')}</p>
+                    <!-- Aqui podes mostrar mais dados do perfil, preferências, etc. -->
+                  `;
+                } else {
+                  container.innerHTML = '<p>Perfil não encontrado no Firestore.</p>';
+                }
+              } else {
+                // Não está autenticado – redirecionar para login
+                window.location.href = 'login.html';
+              }
+            });
+        
+            // 2) Botão de logout
+            document.getElementById('logout-btn').addEventListener('click', async (e) => {
+              e.preventDefault();
+              await auth.signOut();
+              window.location.href = 'index.html';
+            });
+          </script>
+    </body>
+</html>
